@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/addon/edit/matchbrackets.min.js"></script>
+  </head>
+  <body>
+    <textarea id="code-editor"></textarea>
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        lineNumbers: true,
+        mode: "text/x-java",
+        theme: "monokai",
+        matchBrackets: true
+      });
+      
+      function setMode(mode) {
+        if (mode === "java") {
+          editor.setOption("mode", "text/x-java");
+        } else if (mode === "javascript") {
+          editor.setOption("mode", "javascript");
+        } else if (mode === "html") {
+          editor.setOption("mode", "htmlmixed");
+        }
+      }
+      
+      function compileCode() {
+        const code = editor.getValue();
+        let
