@@ -17,10 +17,6 @@ switch ($language) {
         $command = 'python';
         $filename = 'main.py';
         break;
-    case 'html':
-        $command = 'html';
-        $filename = 'index.html';
-        break;
     default:
         die('Error: Invalid language selection.');
 }
