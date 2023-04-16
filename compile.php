@@ -1,43 +1,39 @@
 <?php
+// get the user's code and language selection from the form
+$userCode = $_POST['code'];
+$language = $_POST['language'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the language and code from the form submission
-    $language = $_POST['language'];
-    $code = $_POST['code'];
-
-    // Compile the code based on the selected language
-    switch ($language) {
-        case 'java':
-            // Compile Java code
-            $output = shell_exec("javac Main.java 2>&1");
-            if (!$output) {
-                $output = shell_exec("java Main 2>&1");
-            }
-            break;
-
-        case 'js':
-            // Compile JavaScript code
-            $output = shell_exec("node Main.js 2>&1");
-            break;
-
-        case 'python':
-            // Compile Python code
-            $output = shell_exec("python Main.py 2>&1");
-            break;
-
-        case 'html':
-            // Compile HTML code
-            $output = shell_exec("open index.html");
-            break;
-
-        default:
-            // Invalid language selection
-            $output = "Invalid language selection";
-            break;
-    }
-
-    // Print the output of the compilation process
-    echo "<pre>$output</pre>";
+// determine which command to use based on the selected language
+switch ($language) {
+    case 'java':
+        $command = 'java';
+        $filename = 'Main.java';
+        break;
+    case 'js':
+        $command = 'node';
+        $filename = 'index.js';
+        break;
+    case 'python':
+        $command = 'python';
+        $filename = 'main.py';
+        break;
+    case 'html':
+        $command = 'html';
+        $filename = 'index.html';
+        break;
+    default:
+        die('Error: Invalid language selection.');
 }
 
+// create a file with the user's code
+file_put_contents($filename, $userCode);
+
+// execute the command to compile and run the code
+$output = shell_exec("$command $filename");
+
+// display the output
+echo "<pre>$output</pre>";
+
+// remove the file containing the user's code
+unlink($filename);
 ?>
