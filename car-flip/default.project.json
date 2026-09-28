@@ -1,0 +1,11 @@
+{
+  "name": "CarFlip",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "FlipShared": {
+        "$path": "src/shared"
+      }
+    }
+  }
+}
